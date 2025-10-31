@@ -18,7 +18,7 @@ class LinkedList {
 
    public:
     // Behaviors
-    void PrintForward() const {
+    void printForward() const {
         Node* iter = head;
 
         std::cout << "{";
@@ -115,7 +115,7 @@ class LinkedList {
         Clear();
         Node* iter = other.head;
         while (iter) {
-            addTail(iter->data);
+            AddTail(iter->data);
             iter = iter->next;
         }
 
@@ -127,7 +127,7 @@ class LinkedList {
     LinkedList(const LinkedList<T>& list) {
         Node* iter = list.head;
         while (iter) {
-            addTail(iter->data);
+            AddTail(iter->data);
             iter = iter->next;
         }
     }

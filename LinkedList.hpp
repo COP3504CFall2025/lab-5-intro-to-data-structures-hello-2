@@ -29,7 +29,7 @@ class LinkedList {
         std::cout << "}" << std::endl;
     }
 
-    void PrintReverse() const {
+    void printReverse() const {
         Node* iter = tail;
 
         std::cout << "{";
@@ -48,7 +48,7 @@ class LinkedList {
     const Node* getTail() const { return tail; }
 
     // Insertion
-    void AddHead(const T& data) {
+    void addHead(const T& data) {
         Node* new_node = new Node(data, nullptr, head);
         head = new_node;
         count++;
@@ -58,7 +58,7 @@ class LinkedList {
         }
     }
 
-    void AddTail(const T& data) {
+    void addTail(const T& data) {
         Node* new_node = new Node(data, tail, nullptr);
         tail = new_node;
         count++;
@@ -69,11 +69,12 @@ class LinkedList {
     }
 
     // Removal
-    bool RemoveHead() {
+    bool removeHead() {
         if (!head) {
             return false;
         }
 
+        Node* after = head->next;
         delete head;
         head = head->next;
         head->prev = nullptr;
@@ -81,7 +82,7 @@ class LinkedList {
         return true;
     }
 
-    bool RemoveTail() {
+    bool removeTail() {
         if (!tail) {
             return false;
         }
@@ -93,8 +94,8 @@ class LinkedList {
         return true;
     }
 
-    void Clear() {
-        while (RemoveHead())
+    void clear() {
+        while (removeHead())
             ;
     }
 
@@ -104,7 +105,7 @@ class LinkedList {
             return *this;
         }
 
-        Clear();
+        clear();
         head = other.head;
         tail = other.tail;
         count = other.count;
@@ -121,10 +122,10 @@ class LinkedList {
             return *this;
         }
 
-        Clear();
+        clear();
         Node* iter = other.head;
         while (iter) {
-            AddTail(iter->data);
+            addTail(iter->data);
             iter = iter->next;
         }
 
@@ -136,7 +137,7 @@ class LinkedList {
     LinkedList(const LinkedList<T>& list) {
         Node* iter = list.head;
         while (iter) {
-            AddTail(iter->data);
+            addTail(iter->data);
             iter = iter->next;
         }
     }
@@ -151,5 +152,5 @@ class LinkedList {
         other.count = 0;
     }
 
-    ~LinkedList() { Clear(); }
+    ~LinkedList() { clear(); }
 };

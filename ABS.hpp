@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <iostream>
 #include <stdexcept>
 #include "Interfaces.hpp"
 
@@ -10,6 +11,24 @@ using std::size_t;
 template <typename T>
 class ABS : public StackInterface<T> {
    public:
+    void PrintForward() const {
+        std::cout << "{";
+        for (size_t i = 0; i < curr_size_; i++) {
+            std::cout << array_[i] << i == curr_size_ - 1 ? "}" : ", ";
+        }
+    }
+
+    void PrintReverse() const {
+        std::cout << "{";
+        /*
+         * i < curr_size_ is used to prevent a compiler warning when i >= 0 is
+         * used since i is size_t. i < curr_size_ works because i will overflow
+         * when i == 0 and it's decremented.
+         */
+        for (size_t i = curr_size_; i < curr_size_; i--) {
+            std::cout << array_[i] << i == 0 ? "}" : ", ";
+        }
+    }
     // Big 5 + Parameterized Constructor
     ABS() : capacity_(1), curr_size_(0), array_(new T[1]) {}
     explicit ABS(const size_t capacity)
@@ -87,7 +106,7 @@ class ABS : public StackInterface<T> {
     // Push item onto the stack
     void push(const T& data) override {
         if (curr_size_ == capacity_) {
-            capacity_ *= 2;
+            capacity_ *= scale_factor_;
             T* new_array = new T[capacity_];
             for (size_t i = 0; i < curr_size_; i++) {
                 new_array[i] = array_[i];

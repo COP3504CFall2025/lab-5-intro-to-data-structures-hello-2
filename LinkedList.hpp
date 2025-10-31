@@ -23,7 +23,7 @@ class LinkedList {
 
         std::cout << "{";
         while (iter) {
-            std::cout << iter->data << iter->next ? ", " : "";
+            std::cout << iter->data << (iter->next ? ", " : "");
             iter = iter->next;
         }
         std::cout << "}" << std::endl;
@@ -34,7 +34,7 @@ class LinkedList {
 
         std::cout << "{";
         while (iter) {
-            std::cout << iter->data << iter->prev ? ", " : "";
+            std::cout << iter->data << (iter->prev ? ", " : "");
             iter = iter->prev;
         }
         std::cout << "}" << std::endl;

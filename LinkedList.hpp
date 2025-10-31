@@ -76,6 +76,7 @@ class LinkedList {
 
         delete head;
         head = head->next;
+        head->prev = nullptr;
         count--;
         return true;
     }
@@ -87,6 +88,7 @@ class LinkedList {
 
         delete tail;
         tail = tail->prev;
+        tail->next = nullptr;
         count--;
         return true;
     }

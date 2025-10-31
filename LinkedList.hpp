@@ -18,7 +18,7 @@ class LinkedList {
 
    public:
     // Behaviors
-    void printForward() const {
+    void PrintForward() const {
         Node* iter = head;
 
         std::cout << "{";
@@ -29,7 +29,7 @@ class LinkedList {
         std::cout << "}" << std::endl;
     }
 
-    void printReverse() const {
+    void PrintReverse() const {
         Node* iter = tail;
 
         std::cout << "{";
@@ -48,34 +48,44 @@ class LinkedList {
     const Node* getTail() const { return tail; }
 
     // Insertion
-    void addHead(const T& data) {
+    void AddHead(const T& data) {
         Node* new_head = new Node(data, nullptr, head);
         head = new_head;
         count++;
     }
 
-    void addTail(const T& data) {
+    void AddTail(const T& data) {
         Node* new_tail = new Node(data, tail, nullptr);
         tail = new_tail;
         count++;
     }
 
     // Removal
-    bool removeHead() {
+    bool RemoveHead() {
+        if (!head) {
+            return false;
+        }
+
         delete head;
         head = head->next;
         count--;
+        return true;
     }
 
-    bool removeTail() {
+    bool RemoveTail() {
+        if (!tail) {
+            return false;
+        }
+
         delete tail;
         tail = tail->prev;
         count--;
+        return true;
     }
 
-    void clear() {
+    void Clear() {
         while (head) {
-            removeHead();
+            RemoveHead();
         }
     }
 
@@ -85,7 +95,7 @@ class LinkedList {
             return *this;
         }
 
-        clear();
+        Clear();
         head = other.head;
         tail = other.tail;
         count = other.count;
@@ -102,7 +112,7 @@ class LinkedList {
             return *this;
         }
 
-        clear();
+        Clear();
         Node* iter = other.head;
         while (iter) {
             addTail(iter->data);
@@ -132,5 +142,5 @@ class LinkedList {
         other.count = 0;
     }
 
-    ~LinkedList() { clear(); }
+    ~LinkedList() { Clear(); }
 };

@@ -49,15 +49,23 @@ class LinkedList {
 
     // Insertion
     void AddHead(const T& data) {
-        Node* new_head = new Node(data, nullptr, head);
-        head = new_head;
+        Node* new_node = new Node(data, nullptr, head);
+        head = new_node;
         count++;
+
+        if (count == 1) {
+            tail = new_node;
+        }
     }
 
     void AddTail(const T& data) {
-        Node* new_tail = new Node(data, tail, nullptr);
-        tail = new_tail;
+        Node* new_node = new Node(data, tail, nullptr);
+        tail = new_node;
         count++;
+
+        if (count == 1) {
+            head = new_node;
+        }
     }
 
     // Removal
@@ -84,9 +92,8 @@ class LinkedList {
     }
 
     void Clear() {
-        while (head) {
-            RemoveHead();
-        }
+        while (RemoveHead())
+            ;
     }
 
     // Operators

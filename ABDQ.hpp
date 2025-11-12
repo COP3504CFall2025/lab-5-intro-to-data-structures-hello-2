@@ -11,27 +11,27 @@ class ABDQ : public DequeInterface<T> {
     std::size_t capacity_;  // total allocated capacity
     std::size_t size_;      // number of stored elements
     std::size_t front_;     // index of front element
-    std::size_t back_;      // index after the last element (circular)
 
     static constexpr std::size_t SCALE_FACTOR = 2;
 
    public:
+    std::size_t back_;  // index after the last element (circular)
     // Big 5
-    ABDQ() : capacity_(4), size_(0), front_(0), back_(0), data_(new T[4]) {}
+    ABDQ() : data_(new T[4]), capacity_(4), size_(0), front_(0), back_(0) {}
 
     explicit ABDQ(std::size_t capacity)
-        : capacity_(capacity),
+        : data_(new T[capacity]),
+          capacity_(capacity),
           size_(0),
           front_(0),
-          back_(0),
-          data_(new T[capacity]) {}
+          back_(0) {}
 
     ABDQ(const ABDQ& other) {
+        data_ = new T[capacity_];
         capacity_ = other.capacity_;
         size_ = other.size_;
         front_ = other.front_;
         back_ = other.back_;
-        data_ = new T[capacity_];
 
         for (std::size_t i = front_; i < back_; i++) {
             data_[i] = other.data_[i];
@@ -39,17 +39,17 @@ class ABDQ : public DequeInterface<T> {
     }
 
     ABDQ(ABDQ&& other) noexcept {
+        data_ = other.data_;
         capacity_ = other.capacity_;
         size_ = other.size_;
         front_ = other.front_;
         back_ = other.back_;
-        data_ = other.data_;
 
+        other.data_ = nullptr;
         other.capacity_ = 0;
         other.size_ = 0;
         other.front_ = 0;
         other.back_ = 0;
-        other.data_ = nullptr;
     }
 
     ABDQ& operator=(const ABDQ& other) {
@@ -57,11 +57,11 @@ class ABDQ : public DequeInterface<T> {
             return *this;
         }
 
+        data_ = new T[other.capacity_];
         capacity_ = other.capacity_;
         size_ = other.size_;
         front_ = other.front_;
         back_ = other.back_;
-        data_ = new T[capacity_];
 
         for (std::size_t i = front_; i < back_; i++) {
             data_[i] = other.data_[i];
@@ -75,28 +75,28 @@ class ABDQ : public DequeInterface<T> {
             return *this;
         }
 
+        data_ = other.data_;
         capacity_ = other.capacity_;
         size_ = other.size_;
         front_ = other.front_;
         back_ = other.back_;
-        data_ = other.data_;
 
+        other.data_ = nullptr;
         other.capacity_ = 0;
         other.size_ = 0;
         other.front_ = 0;
         other.back_ = 0;
-        other.data_ = nullptr;
 
         return *this;
     }
 
     ~ABDQ() noexcept {
         delete[] data_;
+        data_ = nullptr;
         capacity_ = 0;
         size_ = 0;
         front_ = 0;
         back_ = 0;
-        data_ = nullptr;
     }
 
     // Insertion
@@ -116,29 +116,32 @@ class ABDQ : public DequeInterface<T> {
 
     // Deletion
     T popFront() override {
+        T el = data_[front_];
         front_ = (front_ + 1) % capacity_;
         size_--;
         shrinkIfNeeded();
+        return el;
     }
 
     T popBack() override {
+        T el = data_[back_];
         back_ = (back_ == 0) ? capacity_ - 1 : back_ - 1;
         size_--;
         shrinkIfNeeded();
+        return el;
     }
 
     // Access
     const T& front() const override { return data_[front_]; }
-
-    const T& back() const override { return data_[back_]; }
+    const T& back() const override { return data_[back_ - 1]; }
 
     void ensureCapacity() {
         if (size_ == capacity_) {
-            size_t new_capacity = capacity_ * SCALE_FACTOR;
+            std::size_t new_capacity = capacity_ * SCALE_FACTOR;
             T* temp = new T[new_capacity];
 
-            for (size_t i = front_, j = front_ + capacity_; i < front_ + size_;
-                 i++, j++) {
+            for (std::size_t i = front_, j = front_ + capacity_;
+                 i < front_ + size_; i++, j++) {
                 temp[j % new_capacity] = data_[i % capacity_];
             }
 
@@ -151,10 +154,10 @@ class ABDQ : public DequeInterface<T> {
 
     void shrinkIfNeeded() {
         if (size_ < capacity_ / (SCALE_FACTOR * SCALE_FACTOR)) {
-            size_t new_capacity = capacity_ / SCALE_FACTOR;
+            std::size_t new_capacity = capacity_ / SCALE_FACTOR;
             T* temp = new T[new_capacity];
 
-            for (size_t i = front_, j = front_ - new_capacity;
+            for (std::size_t i = front_, j = front_ - new_capacity;
                  i < front_ + size_; i++, j++) {
                 temp[j % new_capacity] = data_[i % capacity_];
             }

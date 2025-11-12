@@ -50,20 +50,28 @@ class LinkedList {
     // Insertion
     void addHead(const T& data) {
         Node* new_node = new Node(data, nullptr, head);
-        head = new_node;
-        count++;
 
-        if (count == 1) {
+        if (head) {
+            head->prev = new_node;
+        }
+
+        head = new_node;
+
+        if (++count == 1) {
             tail = new_node;
         }
     }
 
     void addTail(const T& data) {
         Node* new_node = new Node(data, tail, nullptr);
-        tail = new_node;
-        count++;
 
-        if (count == 1) {
+        if (tail) {
+            tail->prev = new_node;
+        }
+
+        tail = new_node;
+
+        if (++count == 1) {
             head = new_node;
         }
     }

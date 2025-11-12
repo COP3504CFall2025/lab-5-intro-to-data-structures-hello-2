@@ -111,7 +111,11 @@ class LinkedList {
         return true;
     }
 
-    void clear() { while (removeHead()); }
+    void clear() {
+        while (removeHead());
+        tail = nullptr;
+        count = 0;
+    }
 
     // Operators
     LinkedList<T>& operator=(LinkedList<T>&& other) noexcept {

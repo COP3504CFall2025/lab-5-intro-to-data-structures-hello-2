@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <stdexcept>
+
 #include "Interfaces.hpp"
 
 template <typename T>
@@ -92,7 +93,7 @@ class ABQ : public QueueInterface<T> {
         return *this;
     }
 
-    ~ABQ() noexcept override {
+    ~ABQ() noexcept {
         delete[] array_;
         first_idx_ = 0;
         last_idx_ = 0;

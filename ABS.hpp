@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <stdexcept>
+
 #include "Interfaces.hpp"
 
 // Technically bad, but size_t isn't likely to conflict with any client code.
@@ -90,7 +91,7 @@ class ABS : public StackInterface<T> {
         return *this;
     }
 
-    ~ABS() noexcept override {
+    ~ABS() noexcept {
         delete[] array_;
         array_ = nullptr;
     }
@@ -135,7 +136,7 @@ class ABS : public StackInterface<T> {
             throw std::out_of_range("no elements to pop");
         }
 
-        curr_size_--;
+        return array_[--curr_size_];
     }
 
    private:

@@ -1,8 +1,6 @@
 #pragma once
 
 #include <cstddef>
-#include <stdexcept>
-#include <utility>
 
 #include "Interfaces.hpp"
 
@@ -92,7 +90,7 @@ class ABDQ : public DequeInterface<T> {
         return *this;
     }
 
-    ~ABDQ() override {
+    ~ABDQ() noexcept {
         delete[] data_;
         capacity_ = 0;
         size_ = 0;

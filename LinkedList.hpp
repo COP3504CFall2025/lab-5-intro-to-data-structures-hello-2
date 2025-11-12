@@ -94,10 +94,7 @@ class LinkedList {
         return true;
     }
 
-    void clear() {
-        while (removeHead())
-            ;
-    }
+    void clear() { while (removeHead()); }
 
     // Operators
     LinkedList<T>& operator=(LinkedList<T>&& other) noexcept {
@@ -134,6 +131,7 @@ class LinkedList {
 
     // Construction/Destruction
     LinkedList() {}
+
     LinkedList(const LinkedList<T>& list) {
         Node* iter = list.head;
         while (iter) {

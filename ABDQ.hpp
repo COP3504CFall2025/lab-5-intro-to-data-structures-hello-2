@@ -124,7 +124,7 @@ class ABDQ : public DequeInterface<T> {
     }
 
     T popBack() override {
-        T el = data_[back_];
+        T el = data_[back_ - 1];
         back_ = (back_ == 0) ? capacity_ - 1 : back_ - 1;
         size_--;
         shrinkIfNeeded();

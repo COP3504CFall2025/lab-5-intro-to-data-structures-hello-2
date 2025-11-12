@@ -1,7 +1,9 @@
 #pragma once
 
 #include <stdlib.h>
+
 #include <stdexcept>
+
 #include "Interfaces.hpp"
 #include "LinkedList.hpp"
 
@@ -23,14 +25,20 @@ class LLS : public StackInterface<T> {
         }
 
         if (!list.removeHead()) {
-            throw std::runtime_error("LLS pop(): no element to remove");
+            throw std::runtime_error("LLS pop(): no elements to pop");
         }
 
         return data;
     }
 
     // Access
-    T peek() const override { return list.getTail()->data; }
+    T peek() const override {
+        if (!list.getTail()) {
+            throw std::runtime_error("LLS peek(): no elements to peek");
+        }
+
+        return list.getTail()->data;
+    }
 
     // Getters
     std::size_t getSize() const noexcept override { return list.getCount(); }

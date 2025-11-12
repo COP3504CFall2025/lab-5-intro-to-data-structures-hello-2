@@ -25,7 +25,7 @@ class LLQ : public QueueInterface<T> {
         }
 
         if (!list.removeHead()) {
-            throw std::runtime_error("LLQ dequeue(): no element to remove");
+            throw std::runtime_error("LLQ dequeue(): no elements to dequeue");
         }
 
         return data;

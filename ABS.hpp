@@ -125,7 +125,7 @@ class ABS : public StackInterface<T> {
 
     T peek() const override {
         if (curr_size_ == 0) {
-            throw std::out_of_range("array-based stack is empty");
+            throw std::out_of_range("ABS peek(): no elements to peek");
         }
 
         return array_[curr_size_ - 1];
@@ -133,7 +133,7 @@ class ABS : public StackInterface<T> {
 
     T pop() override {
         if (curr_size_ == 0) {
-            throw std::out_of_range("no elements to pop");
+            throw std::out_of_range("ABS pop(): no elements to pop");
         }
 
         return array_[--curr_size_];

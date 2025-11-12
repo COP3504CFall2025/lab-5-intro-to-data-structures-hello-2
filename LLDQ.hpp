@@ -15,7 +15,6 @@ class LLDQ : public DequeInterface<T> {
    public:
     // Core Insertion Operations
     void pushFront(const T& item) override { list.addHead(item); }
-
     void pushBack(const T& item) override { list.addTail(item); }
 
     // Core Removal Operations
@@ -27,7 +26,7 @@ class LLDQ : public DequeInterface<T> {
         }
 
         if (!list.removeHead()) {
-            throw std::runtime_error("LLDQ popFront(): no element to remove");
+            throw std::runtime_error("LLDQ popFront(): no elements to pop");
         }
 
         return data;
@@ -41,16 +40,28 @@ class LLDQ : public DequeInterface<T> {
         }
 
         if (!list.removeTail()) {
-            throw std::runtime_error("LLDQ popBack(): no element to remove");
+            throw std::runtime_error("LLDQ popBack(): no elements to pop");
         }
 
         return data;
     }
 
     // Element Accessors
-    const T& front() const override { return list.getHead()->data; }
+    const T& front() const override {
+        if (!list.getHead()) {
+            throw std::runtime_error("LLDQ front(): no element at front");
+        }
 
-    const T& back() const override { return list.getTail()->data; }
+        return list.getHead()->data;
+    }
+
+    const T& back() const override {
+        if (!list.getTail()) {
+            throw std::runtime_error("LLDQ back(): no element at back");
+        }
+
+        return list.getTail()->data;
+    }
 
     // Getter
     std::size_t getSize() const noexcept override { return list.getCount(); }

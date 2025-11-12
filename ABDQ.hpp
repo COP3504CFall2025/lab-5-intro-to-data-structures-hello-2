@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <stdexcept>
 
 #include "Interfaces.hpp"
 
@@ -11,11 +12,11 @@ class ABDQ : public DequeInterface<T> {
     std::size_t capacity_;  // total allocated capacity
     std::size_t size_;      // number of stored elements
     std::size_t front_;     // index of front element
+    std::size_t back_;      // index after the last element (circular)
 
     static constexpr std::size_t SCALE_FACTOR = 2;
 
    public:
-    std::size_t back_;  // index after the last element (circular)
     // Big 5
     ABDQ() : data_(new T[4]), capacity_(4), size_(0), front_(0), back_(0) {}
 
@@ -116,6 +117,10 @@ class ABDQ : public DequeInterface<T> {
 
     // Deletion
     T popFront() override {
+        if (size_ == 0) {
+            throw std::runtime_error("ABDQ popFront(): no elements to pop");
+        }
+
         T el = data_[front_];
         front_ = (front_ + 1) % capacity_;
         size_--;
@@ -124,6 +129,10 @@ class ABDQ : public DequeInterface<T> {
     }
 
     T popBack() override {
+        if (size_ == 0) {
+            throw std::runtime_error("ABDQ popBack(): no elements to pop");
+        }
+
         T el = data_[back_ - 1];
         back_ = (back_ == 0) ? capacity_ - 1 : back_ - 1;
         size_--;
@@ -132,8 +141,20 @@ class ABDQ : public DequeInterface<T> {
     }
 
     // Access
-    const T& front() const override { return data_[front_]; }
-    const T& back() const override { return data_[back_ - 1]; }
+    const T& front() const override {
+        if (size_ == 0) {
+            throw std::runtime_error("ABQ front(): no elements in deque");
+        }
+
+        return data_[front_];
+    }
+    const T& back() const override {
+        if (size_ == 0) {
+            throw std::runtime_error("ABQ front(): no elements in deque");
+        }
+
+        return data_[back_ - 1];
+    }
 
     void ensureCapacity() {
         if (size_ == capacity_) {

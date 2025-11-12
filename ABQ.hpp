@@ -110,6 +110,7 @@ class ABQ : public QueueInterface<T> {
     [[nodiscard]] std::size_t getMaxCapacity() const noexcept {
         return capacity_;
     }
+
     [[nodiscard]] T* getData() const noexcept { return array_; }
 
     // Insertion
@@ -131,7 +132,13 @@ class ABQ : public QueueInterface<T> {
     }
 
     // Access
-    T peek() const override { return array_[first_idx_]; }
+    T peek() const override {
+        if (curr_size_ == 0) {
+            throw std::runtime_error("ABQ peek(): no elements to peek");
+        }
+
+        return array_[first_idx_];
+    }
 
     // Deletion
     T dequeue() override {

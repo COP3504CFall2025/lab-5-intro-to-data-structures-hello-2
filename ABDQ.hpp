@@ -8,15 +8,14 @@
 template <typename T>
 class ABDQ : public DequeInterface<T> {
    private:
+    static constexpr std::size_t SCALE_FACTOR = 2;
+
+   public:
     T* data_;               // underlying dynamic array
     std::size_t capacity_;  // total allocated capacity
     std::size_t size_;      // number of stored elements
     std::size_t front_;     // index of front element
     std::size_t back_;      // index after the last element (circular)
-
-    static constexpr std::size_t SCALE_FACTOR = 2;
-
-   public:
     // Big 5
     ABDQ() : data_(new T[4]), capacity_(4), size_(0), front_(0), back_(0) {}
 
@@ -58,6 +57,7 @@ class ABDQ : public DequeInterface<T> {
             return *this;
         }
 
+        delete[] data_;
         data_ = new T[other.capacity_];
         capacity_ = other.capacity_;
         size_ = other.size_;
@@ -76,6 +76,7 @@ class ABDQ : public DequeInterface<T> {
             return *this;
         }
 
+        delete[] data_;
         data_ = other.data_;
         capacity_ = other.capacity_;
         size_ = other.size_;

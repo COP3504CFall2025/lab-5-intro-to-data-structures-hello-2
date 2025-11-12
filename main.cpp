@@ -34,7 +34,10 @@ int main() {
     test.pushBack(10);
     std::cout << test.front() << std::endl;  // 5
     std::cout << test.back() << std::endl;   // 10
-    std::cout << test.back_ << std::endl;
+
+    ABDQ<int> test2 = ABDQ<int>(4);
+    std::cout << test2.capacity_ << std::endl;  // 4
+    test = ABDQ<int>(4);
 
     return 0;
 }

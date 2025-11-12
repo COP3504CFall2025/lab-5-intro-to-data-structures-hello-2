@@ -27,7 +27,7 @@ class ABDQ : public DequeInterface<T> {
           back_(0) {}
 
     ABDQ(const ABDQ& other) {
-        data_ = new T[capacity_];
+        data_ = new T[other.capacity_];
         capacity_ = other.capacity_;
         size_ = other.size_;
         front_ = other.front_;

@@ -45,6 +45,11 @@ int main() {
     list.addHead(3);
     list.addHead(4);
     list.addHead(5);
+    list.addTail(6);
+    list.addTail(7);
+    list.addTail(8);
+    list.addTail(9);
+    list.addTail(10);
 
     return 0;
 }

@@ -66,7 +66,7 @@ class LinkedList {
         Node* new_node = new Node(data, tail, nullptr);
 
         if (tail) {
-            tail->prev = new_node;
+            tail->next = new_node;
         }
 
         tail = new_node;

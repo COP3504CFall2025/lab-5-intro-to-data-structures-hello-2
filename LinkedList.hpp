@@ -76,8 +76,12 @@ class LinkedList {
 
         Node* after = head->next;
         delete head;
-        head = head->next;
-        head->prev = nullptr;
+        head = after;
+
+        if (head) {
+            head->prev = nullptr;
+        }
+
         count--;
         return true;
     }
@@ -87,9 +91,14 @@ class LinkedList {
             return false;
         }
 
+        Node* before = tail->prev;
         delete tail;
-        tail = tail->prev;
-        tail->next = nullptr;
+        tail = before;
+
+        if (tail) {
+            tail->next = nullptr;
+        }
+
         count--;
         return true;
     }

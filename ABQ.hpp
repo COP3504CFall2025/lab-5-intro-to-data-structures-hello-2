@@ -19,9 +19,9 @@ class ABQ : public QueueInterface<T> {
     ABQ()
         : first_idx_(0),
           last_idx_(0),
-          capacity_(2),
+          capacity_(1),
           curr_size_(0),
-          array_(new T[2]) {}
+          array_(new T[capacity_]) {}
     explicit ABQ(std::size_t capacity)
         : first_idx_(0),
           last_idx_(0),
@@ -83,6 +83,7 @@ class ABQ : public QueueInterface<T> {
         last_idx_ = rhs.last_idx_;
         capacity_ = rhs.capacity_;
         curr_size_ = rhs.curr_size_;
+        delete[] array_;
         array_ = rhs.array_;
 
         rhs.first_idx_ = 0;

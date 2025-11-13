@@ -1,4 +1,6 @@
 #pragma once
+#include <pthread.h>
+
 #include <iostream>
 using namespace std;
 
@@ -88,6 +90,8 @@ class LinkedList {
 
         if (head) {
             head->prev = nullptr;
+        } else {
+            tail = nullptr;
         }
 
         count--;

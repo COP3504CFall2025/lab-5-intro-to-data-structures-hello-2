@@ -32,7 +32,13 @@ class LLQ : public QueueInterface<T> {
     }
 
     // Access
-    T peek() const override { return list.getHead()->data; }
+    T peek() const override {
+        if (!list.getHead()) {
+            throw std::runtime_error("LLQ peek(): no elements to peek");
+        }
+
+        return list.getHead()->data;
+    }
 
     // Getter
     std::size_t getSize() const noexcept override { return list.getCount(); }

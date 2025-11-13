@@ -109,6 +109,8 @@ class LinkedList {
 
         if (tail) {
             tail->next = nullptr;
+        } else {
+            head = nullptr;
         }
 
         count--;

@@ -84,6 +84,8 @@ int main() {
     std::cout << abq.getMaxCapacity() << std::endl;
     abq.enqueue(1);
 
+    ABQ<int> abq2;
+
     return 0;
 }
 

@@ -8,7 +8,7 @@
 template <typename T>
 class ABQ : public QueueInterface<T> {
     std::size_t first_idx_;
-    std::size_t last_idx_;
+    std::size_t last_idx_;  // index of last element + 1
     std::size_t capacity_;
     std::size_t curr_size_;
     T* array_;
@@ -36,7 +36,7 @@ class ABQ : public QueueInterface<T> {
         curr_size_ = other.curr_size_;
         array_ = new T[capacity_];
 
-        for (std::size_t i = first_idx_; i <= last_idx_; i++) {
+        for (std::size_t i = first_idx_; i < last_idx_; i++) {
             array_[i] = other.array_[i];
         }
     }
@@ -53,7 +53,7 @@ class ABQ : public QueueInterface<T> {
         delete[] array_;
         array_ = new T[capacity_];
 
-        for (std::size_t i = first_idx_; i <= last_idx_; i++) {
+        for (std::size_t i = first_idx_; i < last_idx_; i++) {
             array_[i] = rhs.array_[i];
         }
 
@@ -117,10 +117,10 @@ class ABQ : public QueueInterface<T> {
     // Insertion
     void enqueue(const T& data) override {
         if (curr_size_ == capacity_) {
-            capacity_ *= scale_factor_;
+            capacity_ = (capacity_ == 0) ? 1 : capacity_ * scale_factor_;
             T* temp = new T[capacity_];
 
-            for (std::size_t i = first_idx_; i <= last_idx_; i++) {
+            for (std::size_t i = first_idx_; i < last_idx_; i++) {
                 temp[i] = array_[i];
             }
 
@@ -128,8 +128,7 @@ class ABQ : public QueueInterface<T> {
             array_ = temp;
         }
 
-        last_idx_ = (curr_size_ == 0) ? 0 : last_idx_ + 1;
-        array_[last_idx_] = data;
+        array_[last_idx_++] = data;
         curr_size_++;
     }
 
@@ -154,7 +153,7 @@ class ABQ : public QueueInterface<T> {
             capacity_ /= scale_factor_;
             T* temp = new T[capacity_];
 
-            for (std::size_t i = first_idx_ + 1, j = 0; i <= last_idx_;
+            for (std::size_t i = first_idx_ + 1, j = 0; i < last_idx_;
                  i++, j++) {
                 temp[j] = array_[i];
             }
@@ -162,7 +161,7 @@ class ABQ : public QueueInterface<T> {
             delete[] array_;
             array_ = temp;
             first_idx_ = 0;
-            last_idx_ = curr_size_ - 1;
+            last_idx_ = curr_size_;
         } else {
             first_idx_++;
         }

@@ -42,8 +42,8 @@ int main() {
     LinkedList<int> list;
     list.addHead(1);
     list.removeHead();
-    std::cout << list.getTail() << std::endl;
-    std::cout << list.getHead() << std::endl;
+    // std::cout << list.getTail() << std::endl;
+    // std::cout << list.getHead() << std::endl;
     // list.addHead(2);
     // list.addHead(3);
     // list.addHead(4);
@@ -67,14 +67,22 @@ int main() {
     ABQ<int> abq;
     abq.enqueue(1);
     abq.enqueue(2);
+    std::cout << abq.getMaxCapacity() << std::endl;
     abq.enqueue(3);
     abq.enqueue(4);
+    std::cout << abq.getMaxCapacity() << std::endl;
     abq.enqueue(5);
+    std::cout << abq.getMaxCapacity() << std::endl;
+    abq.dequeue();
+    std::cout << abq.getMaxCapacity() << std::endl;
     abq.dequeue();
     abq.dequeue();
+    std::cout << abq.getMaxCapacity() << std::endl;
     abq.dequeue();
+    std::cout << abq.getMaxCapacity() << std::endl;
     abq.dequeue();
-    abq.dequeue();
+    std::cout << abq.getMaxCapacity() << std::endl;
+    abq.enqueue(1);
 
     return 0;
 }

@@ -33,11 +33,11 @@ class LLS : public StackInterface<T> {
 
     // Access
     T peek() const override {
-        if (!list.getTail()) {
+        if (!list.getHead()) {
             throw std::runtime_error("LLS peek(): no elements to peek");
         }
 
-        return list.getTail()->data;
+        return list.getHead()->data;
     }
 
     // Getters

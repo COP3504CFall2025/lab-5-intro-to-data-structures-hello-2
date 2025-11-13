@@ -19,10 +19,10 @@ class ABQ : public QueueInterface<T> {
     ABQ()
         : first_idx_(0),
           last_idx_(0),
-          capacity_(1),
+          capacity_(2),
           curr_size_(0),
-          array_(new T[1]) {}
-    explicit ABQ(const std::size_t capacity)
+          array_(new T[2]) {}
+    explicit ABQ(std::size_t capacity)
         : first_idx_(0),
           last_idx_(0),
           capacity_(capacity),

@@ -85,6 +85,7 @@ int main() {
     abq.enqueue(1);
 
     ABQ<int> abq2;
+    ABQ<int> abq3 = ABQ<int>();
 
     ABS<int> abs;
     abs.push(1);

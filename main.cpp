@@ -70,6 +70,11 @@ int main() {
     abq.enqueue(3);
     abq.enqueue(4);
     abq.enqueue(5);
+    abq.dequeue();
+    abq.dequeue();
+    abq.dequeue();
+    abq.dequeue();
+    abq.dequeue();
 
     return 0;
 }

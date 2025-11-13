@@ -161,6 +161,10 @@ class ABQ : public QueueInterface<T> {
 
             delete[] array_;
             array_ = temp;
+            first_idx_ = 0;
+            last_idx_ = curr_size_ - 1;
+        } else {
+            first_idx_++;
         }
 
         return el;

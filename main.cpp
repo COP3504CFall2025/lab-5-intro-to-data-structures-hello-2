@@ -64,6 +64,13 @@ int main() {
     llq.enqueue(7);
     llq.enqueue(8);
 
+    ABQ<int> abq;
+    abq.enqueue(1);
+    abq.enqueue(2);
+    abq.enqueue(3);
+    abq.enqueue(4);
+    abq.enqueue(5);
+
     return 0;
 }
 

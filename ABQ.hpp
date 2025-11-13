@@ -128,7 +128,8 @@ class ABQ : public QueueInterface<T> {
             array_ = temp;
         }
 
-        array_[++last_idx_] = data;
+        last_idx_ = (curr_size_ == 0) ? 0 : last_idx_ + 1;
+        array_[last_idx_] = data;
         curr_size_++;
     }
 

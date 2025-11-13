@@ -86,6 +86,13 @@ int main() {
 
     ABQ<int> abq2;
 
+    ABS<int> abs;
+    abs.push(1);
+    abs.push(2);
+    abs.push(3);
+    abs.pop();
+    std::cout << abs.getMaxCapacity() << std::endl;
+
     return 0;
 }
 

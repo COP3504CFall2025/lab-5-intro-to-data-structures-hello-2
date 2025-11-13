@@ -149,7 +149,7 @@ class ABQ : public QueueInterface<T> {
 
         T el = array_[first_idx_];
 
-        if (--curr_size_ <= capacity_ / scale_factor_) {
+        if (--curr_size_ <= capacity_ / (scale_factor_ * scale_factor_)) {
             capacity_ /= scale_factor_;
             T* temp = new T[capacity_];
 

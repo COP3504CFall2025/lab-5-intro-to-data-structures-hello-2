@@ -116,7 +116,7 @@ class ABS : public StackInterface<T> {
         }
 
         T el = array_[--curr_size_];
-        if (curr_size_ <= capacity_ / scale_factor_) {
+        if (curr_size_ == capacity_ / (scale_factor_ * scale_factor_)) {
             capacity_ /= scale_factor_;
             T* temp = new T[capacity_];
 

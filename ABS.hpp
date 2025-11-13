@@ -116,17 +116,17 @@ class ABS : public StackInterface<T> {
         }
 
         T el = array_[--curr_size_];
-        // if (curr_size_ == capacity_ / scale_factor_) {
-        //     capacity_ /= scale_factor_;
-        //     T* temp = new T[capacity_];
-        //
-        //     for (std::size_t i = 0; i < curr_size_; i++) {
-        //         temp[i] = array_[i];
-        //     }
-        //
-        //     delete[] array_;
-        //     array_ = temp;
-        // }
+        if (curr_size_ <= capacity_ / scale_factor_) {
+            capacity_ /= scale_factor_;
+            T* temp = new T[capacity_];
+
+            for (std::size_t i = 0; i < curr_size_; i++) {
+                temp[i] = array_[i];
+            }
+
+            delete[] array_;
+            array_ = temp;
+        }
 
         return el;
     }

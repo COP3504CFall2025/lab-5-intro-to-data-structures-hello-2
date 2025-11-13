@@ -148,7 +148,21 @@ class ABQ : public QueueInterface<T> {
             throw std::runtime_error("ABQ dequeue(): no elements to dequeue");
         }
 
-        curr_size_--;
-        return array_[first_idx_++];
+        T el = array_[first_idx_];
+
+        if (--curr_size_ <= capacity_ / scale_factor_) {
+            capacity_ /= scale_factor_;
+            T* temp = new T[capacity_];
+
+            for (std::size_t i = first_idx_ + 1, j = 0; i <= last_idx_;
+                 i++, j++) {
+                temp[j] = array_[i];
+            }
+
+            delete[] array_;
+            array_ = temp;
+        }
+
+        return el;
     }
 };
